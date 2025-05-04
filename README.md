@@ -53,6 +53,24 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 
 ---
 
+## Wiring Diagrams
+
+Below are the wiring diagrams for the ESP32 Sprinkler Controller hardware setup:
+
+### 1. ESP32 Relay 8X with UART Wiring - Diagram 1
+![ESP32 Relay 8X UART Wiring 1](ESP32%20Relay%208X%20w%20UART%20Wiring1.jpg)
+
+### 2. ESP32 Relay 8X with UART Wiring - Diagram 2
+![ESP32 Relay 8X UART Wiring 2](ESP32%20Relay%208X%20w%20UART%20Wiring2.jpg)
+
+### 3. ESP32 Relay 8X with UART Wiring - Program Jumper
+![ESP32 Relay 8X UART Wiring 3 - Program Jumper](ESP32%20Relay%208X%20w%20UART%20Wiring3%20program%20jumper.jpg)
+
+### 4. ESP32 Relay 8X Header Pinout (PNG)
+![ESP32 Relay 8X Header Pinout](esp32_relay_x8_headers.png)
+
+---
+
 ## Screenshots
 
 ![Quick Run UI Example](docs/quickrun-ui-example.png) <!-- Add screenshot if available -->
