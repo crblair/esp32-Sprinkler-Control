@@ -71,6 +71,22 @@ Below are the wiring diagrams for the ESP32 Sprinkler Controller hardware setup:
 
 ---
 
+## Main Web Interface
+
+![Main Page](mainpage.png)
+
+### Button & Area Descriptions
+
+| Area/Button         | Description                                                            |
+|--------------------|------------------------------------------------------------------------|
+| Quick Run          | Start a timed run for all enabled zones. Enter duration and click Start.|
+| Start/Stop Button  | Starts or stops the Quick Run session.                                 |
+| Manual Zone Buttons| Turn each sprinkler zone ON or OFF individually.                       |
+| Status Area        | Shows which zone is running, total zones, and live countdown timer.    |
+| Highlight/Red Box  | Indicates Quick Run is active (red border and countdown text).         |
+
+---
+
 ## Screenshots
 
 ![Quick Run UI Example](docs/quickrun-ui-example.png) <!-- Add screenshot if available -->
