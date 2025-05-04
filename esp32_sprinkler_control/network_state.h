@@ -6,7 +6,9 @@
 class NetworkState {
 public:
     String ssid;
-    NetworkState() : ssid("") {}
+    String password;
+
+    NetworkState() : ssid(""), password("") {}
 };
 
 #endif // NETWORK_STATE_H

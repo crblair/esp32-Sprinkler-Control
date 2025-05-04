@@ -119,8 +119,11 @@ void loadWiFiCredentials() {
     String pass = preferences.getString("password", WIFI_PASSWORD);
     WIFI_SSID = ssid;
     WIFI_PASSWORD = pass;
+    testNetState.ssid = ssid;
+    testNetState.password = pass; // Keep NetworkState in sync
     preferences.end();
     // Serial.println("WiFi credentials loaded: "+ WIFI_SSID);
+    // Now also updates testNetState (NetworkState)
 }
 
 bool updateWiFiCredentials(const String& ssid, const String& password) {
@@ -131,7 +134,10 @@ bool updateWiFiCredentials(const String& ssid, const String& password) {
     preferences.end();
     WIFI_SSID = ssid;
     WIFI_PASSWORD = password;
+    testNetState.ssid = ssid;
+    testNetState.password = password; // Keep NetworkState in sync
     // Serial.println("WiFi credentials updated successfully");
+    // Now also updates testNetState (NetworkState)
     return true;
 }
 
@@ -150,7 +156,7 @@ bool configureNetworkSettings() {
     }
 
     // Connect to WiFi using stored credentials
-    WiFi.begin(testNetState.ssid.c_str(), WIFI_PASSWORD.c_str()); // Refactored: use encapsulated SSID
+    WiFi.begin(testNetState.ssid.c_str(), testNetState.password.c_str()); // Refactored: use encapsulated SSID and password
     
     unsigned long startAttemptTime = millis();
     while (WiFi.status() != WL_CONNECTED) {

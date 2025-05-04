@@ -155,6 +155,7 @@ String format12HourTime(int hours, int minutes) {
  */
 void setup() {
   testNetState.ssid = WIFI_SSID; // Assign the global SSID to the encapsulated member
+  testNetState.password = WIFI_PASSWORD; // Assign the global password to the encapsulated member
 
   Serial.begin(115200);
   
