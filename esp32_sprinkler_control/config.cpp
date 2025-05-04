@@ -5,8 +5,6 @@ const int EEPROM_SCHEDULE_SIZE = 2048;  // Size for schedule storage
 const int EEPROM_SIZE = EEPROM_NET_CONFIG_SIZE + EEPROM_SCHEDULE_SIZE;
 
 // WiFi Credentials now stored in mutable Strings
-String WIFI_SSID = "Toucan Dream 1";
-String WIFI_PASSWORD = "Poolisnext22";
 
 // Firmware Version
 const char* FIRMWARE_VERSION = "3.2.2";

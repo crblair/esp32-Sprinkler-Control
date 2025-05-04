@@ -8,8 +8,6 @@
 #define MAX_PERIODS_PER_DAY 3
 
 // WiFi Credentials as mutable global Strings
-extern String WIFI_SSID;
-extern String WIFI_PASSWORD;
 
 // Firmware Version
 extern const char* FIRMWARE_VERSION;

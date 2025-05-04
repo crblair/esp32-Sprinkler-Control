@@ -154,8 +154,8 @@ String format12HourTime(int hours, int minutes) {
  * Initializes hardware, loads configuration, connects to WiFi, sets up web server and OTA, and prepares the system for operation.
  */
 void setup() {
-  testNetState.ssid = WIFI_SSID; // Assign the global SSID to the encapsulated member
-  testNetState.password = WIFI_PASSWORD; // Assign the global password to the encapsulated member
+  testNetState.ssid = testNetState.ssid; // Assign the global SSID to the encapsulated member
+  testNetState.password = testNetState.password; // Assign the global password to the encapsulated member
 
   Serial.begin(115200);
   
@@ -220,7 +220,7 @@ void setup() {
     delay(200);
   }
   
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  WiFi.begin(testNetState.ssid.c_str(), testNetState.password.c_str());
   Serial.print("Connecting to WiFi");
   
   // Blink LED while connecting to WiFi
@@ -248,7 +248,7 @@ void setup() {
           String s = WiFi.SSID(i);
           if (s.length() == 0) continue;
           ssidOptions += "<option value='" + s + "'";
-          if (s == WIFI_SSID) ssidOptions += " selected";
+          if (s == testNetState.ssid) ssidOptions += " selected";
           ssidOptions += ">" + s + "</option>";
         }
         // Determine if static IP was previously set
@@ -261,7 +261,7 @@ void setup() {
         html += "<h1>WiFi Configuration</h1>";
         html += "<form method='POST' action='/wifi'>";
         html += "SSID: <select name='ssid'>" + ssidOptions + "</select><br>";
-        html += "Password: <input name='password' type='text' value='" + WIFI_PASSWORD + "'><br>";
+        html += "Password: <input name='password' type='text' value='" + testNetState.password + "'><br>";
         html += "<input type='checkbox' id='use_static' name='use_static' value='1' onchange='toggleStaticIP()'";
         if (useStatic) html += " checked";
         html += "> Set Static IP<br>";

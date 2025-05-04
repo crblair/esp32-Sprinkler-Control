@@ -1,3 +1,5 @@
+#include "network_state.h"
+extern NetworkState testNetState;
 #include <WiFi.h>
 #include <WebServer.h>
 #include <time.h> // Only standard time functions needed
@@ -132,7 +134,7 @@ void setupWebServerRoutes(
             String s = WiFi.SSID(i);
             if (s.length() == 0) continue;
             ssidOptions += "<option value='" + s + "'";
-            if (s == WIFI_SSID) ssidOptions += " selected";
+            if (s == testNetState.ssid) ssidOptions += " selected";
             ssidOptions += ">" + s + "</option>";
         }
         Preferences prefs;
@@ -144,7 +146,7 @@ void setupWebServerRoutes(
         html += "<h1>WiFi Configuration</h1>";
         html += "<form method='POST' action='/wifi_setup'>";
         html += "SSID: <select name='ssid'>" + ssidOptions + "</select><br>";
-        html += "Password: <input name='password' type='text' value='" + WIFI_PASSWORD + "'><br>";
+        html += "Password: <input name='password' type='text' value='" + testNetState.password + "'><br>";
         html += "<input type='checkbox' id='use_static' name='use_static' value='1' onchange='toggleStaticIP()'";
         if (useStatic) html += " checked";
         html += "> Set Static IP<br>";

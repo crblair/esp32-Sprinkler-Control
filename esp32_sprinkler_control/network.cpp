@@ -115,14 +115,14 @@ void loadWiFiCredentials() {
     Preferences preferences;
     preferences.begin("wifi", true);
     // If nothing stored, defaults remain
-    String ssid = preferences.getString("ssid", WIFI_SSID);
-    String pass = preferences.getString("password", WIFI_PASSWORD);
-    WIFI_SSID = ssid;
-    WIFI_PASSWORD = pass;
+    String ssid = preferences.getString("ssid", testNetState.ssid);
+    String pass = preferences.getString("password", testNetState.password);
+    testNetState.ssid = ssid;
+    testNetState.password = pass;
     testNetState.ssid = ssid;
     testNetState.password = pass; // Keep NetworkState in sync
     preferences.end();
-    // Serial.println("WiFi credentials loaded: "+ WIFI_SSID);
+    // Serial.println("WiFi credentials loaded: "+ testNetState.ssid);
     // Now also updates testNetState (NetworkState)
 }
 
@@ -132,8 +132,8 @@ bool updateWiFiCredentials(const String& ssid, const String& password) {
     preferences.putString("ssid", ssid);
     preferences.putString("password", password);
     preferences.end();
-    WIFI_SSID = ssid;
-    WIFI_PASSWORD = password;
+    testNetState.ssid = ssid;
+    testNetState.password = password;
     testNetState.ssid = ssid;
     testNetState.password = password; // Keep NetworkState in sync
     // Serial.println("WiFi credentials updated successfully");
