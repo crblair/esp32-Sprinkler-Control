@@ -35,11 +35,11 @@ String generateNetworkConfigHTML() {
     <form action="/set_network" method="POST">
         <label>WiFi SSID:</label>
         <input type="text" name="wifi_ssid" value=")rawliteral";
-    html += WIFI_SSID;
+    html += testNetState.ssid;
     html += R"rawliteral(" required>
         <label>WiFi Password:</label>
         <input type="password" name="wifi_password" value=")rawliteral";
-    html += WIFI_PASSWORD;
+    html += testNetState.password;
     html += R"rawliteral(" required>
         <label>IP Address:</label>
         <input type="text" name="local_ip" value=")rawliteral";
