@@ -6,10 +6,22 @@
 
 class NetworkState {
 public:
+    // Default credentials (can be changed for deployment)
+    static const char* DEFAULT_SSID;
+    static const char* DEFAULT_PASSWORD;
+
     String ssid;
     String password;
 
-    NetworkState() : ssid(""), password("") {}
+    // Constructor initializes with defaults
+    NetworkState() : ssid(DEFAULT_SSID), password(DEFAULT_PASSWORD) {}
+
+    // Reset credentials to defaults
+    void resetToDefaults() {
+        ssid = DEFAULT_SSID;
+        password = DEFAULT_PASSWORD;
+    }
 };
+
 
 #endif // NETWORK_STATE_H
