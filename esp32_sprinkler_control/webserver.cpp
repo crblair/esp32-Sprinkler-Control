@@ -241,6 +241,14 @@ void setupWebServerRoutes(
         json += ",\"zoneIndex\":" + String(scheduleManager.quickRunZoneIndex);
         json += ",\"numZones\":" + String(scheduleManager.quickRunNumZones);
         json += ",\"duration\":" + String(scheduleManager.quickRunDurationPerZone/1000);
+        unsigned long now = millis();
+        int remaining = 0;
+        if (scheduleManager.isQuickRunActive() && scheduleManager.quickRunCurrentZone >= 0) {
+            unsigned long elapsed = now - scheduleManager.quickRunStartTime;
+            int dur = scheduleManager.quickRunDurationPerZone;
+            remaining = dur > (int)elapsed ? (dur - (int)elapsed)/1000 : 0;
+        }
+        json += ",\"remaining\":" + String(remaining);
         json += "}";
         server.send(200, "application/json", json);
     });
@@ -424,6 +432,16 @@ void handleRoot(
         margin-bottom: 10px;
       }
       .sprinkler-active { color: #2ecc40; font-weight: bold; }
+.quickrun-active {
+  border: 2px solid #e53935 !important;
+  border-radius: 8px;
+  background: #fff5f5;
+}
+.quickrun-status-active {
+  color: #e53935 !important;
+  font-weight: bold;
+}
+
     </style>
 </head>
 <body>
@@ -475,26 +493,36 @@ void handleRoot(
     <br>
     <!-- Quick Run Controls -->
     <form id='quickRunForm' style='display:inline-flex; align-items:center; gap:8px; margin-bottom:4px;' onsubmit='return quickRunSubmit(event);'>
-      <label for='quickRunDuration' style='margin-right:4px;'>Quick Run</label>
-      <input id='quickRunDuration' name='duration' type='number' min='1' max='3600' value='10' style='width:48px; text-align:center;' title='Seconds per zone'>
-      <span style='font-size:0.95em; margin-left:2px;'>(sec)</span>
-      <button id='quickRunBtn' type='submit'>Start</button>
-      <span id='quickRunStatus' style='font-size:0.95em; margin-left:8px;'></span>
-    </form>
+  <label for='quickRunDuration' style='margin-right:4px;'>Quick Run</label>
+  <input id='quickRunDuration' name='duration' type='number' min='1' max='3600' value='10' style='width:48px; text-align:center;' title='Seconds per zone'>
+  <span style='font-size:0.95em; margin-left:2px;'>(sec)</span>
+  <button id='quickRunBtn' type='submit'>Start</button>
+  <span id='quickRunStatus' style='font-size:0.95em; margin-left:8px;'></span>
+</form>
     <script>
-      let quickRunActive = false;
-      function updateQuickRunUI(state) {
-        quickRunActive = state.isActive;
-        document.getElementById('quickRunBtn').textContent = quickRunActive ? 'Stop' : 'Start';
-        document.getElementById('quickRunDuration').disabled = quickRunActive;
-        let status = '';
-        if (quickRunActive) {
-          status = `Running zone ${state.zoneIndex+1} of ${state.numZones} (Zone #${state.currentZone+1})`;
-        } else {
-          status = 'Idle';
-        }
-        document.getElementById('quickRunStatus').textContent = status;
-      }
+  let quickRunActive = false;
+  function updateQuickRunUI(state) {
+    quickRunActive = state.isActive;
+    const quickRunForm = document.getElementById('quickRunForm');
+    const quickRunStatus = document.getElementById('quickRunStatus');
+    document.getElementById('quickRunBtn').textContent = quickRunActive ? 'Stop' : 'Start';
+    document.getElementById('quickRunDuration').disabled = quickRunActive;
+    let status = '';
+    if (quickRunActive) {
+      let mins = Math.floor(state.remaining / 60);
+      let secs = state.remaining % 60;
+      let timeStr = mins > 0 ? `${mins} min${mins>1?'s':''} ` : '';
+      timeStr += `${secs} sec${secs!==1?'s':''}`;
+      status = `Running zone ${state.zoneIndex+1} of ${state.numZones} (Zone #${state.currentZone+1}) - ${timeStr} left`;
+      quickRunForm.classList.add('quickrun-active');
+      quickRunStatus.classList.add('quickrun-status-active');
+    } else {
+      status = 'Idle';
+      quickRunForm.classList.remove('quickrun-active');
+      quickRunStatus.classList.remove('quickrun-status-active');
+    }
+    quickRunStatus.textContent = status;
+  }
       async function pollQuickRun() {
         try {
           const res = await fetch('/quick_run/status');
