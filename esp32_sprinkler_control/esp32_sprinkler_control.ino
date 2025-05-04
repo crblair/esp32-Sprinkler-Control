@@ -11,6 +11,11 @@
 #include "timeprefs.h"
 
 #include "config.h"
+#include "network_state.h"
+
+// Temporary test object for incremental refactor
+NetworkState testNetState;
+
 #include "weekday.h"
 /**
  * @file esp32_sprinkler_control.ino
@@ -149,6 +154,8 @@ String format12HourTime(int hours, int minutes) {
  * Initializes hardware, loads configuration, connects to WiFi, sets up web server and OTA, and prepares the system for operation.
  */
 void setup() {
+  testNetState.ssid = WIFI_SSID; // Assign the global SSID to the encapsulated member
+
   Serial.begin(115200);
   
   sprinklerController.begin();

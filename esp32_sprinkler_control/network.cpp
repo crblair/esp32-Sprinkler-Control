@@ -3,6 +3,8 @@
 #include <WiFi.h>
 #include "network.h"
 #include "config.h"
+#include "network_state.h"
+extern NetworkState testNetState;
 
 void loadNetworkSettings() {
     Preferences preferences;
@@ -148,7 +150,7 @@ bool configureNetworkSettings() {
     }
 
     // Connect to WiFi using stored credentials
-    WiFi.begin(WIFI_SSID.c_str(), WIFI_PASSWORD.c_str());
+    WiFi.begin(testNetState.ssid.c_str(), WIFI_PASSWORD.c_str()); // Refactored: use encapsulated SSID
     
     unsigned long startAttemptTime = millis();
     while (WiFi.status() != WL_CONNECTED) {
