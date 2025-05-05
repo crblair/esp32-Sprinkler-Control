@@ -73,7 +73,7 @@ Below are the wiring diagrams for the ESP32 Sprinkler Controller hardware setup:
 
 ## Main Web Interface
 
-![Main Page](mainpage.png)
+![Main Page](mainpage.jpg)
 
 ### Button & Area Descriptions
 
