@@ -20,6 +20,10 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         table { width: 100%; border-collapse: collapse; margin: 10px 0; }
         th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
         .days-container { margin: 10px 0; }
+        .prog-edit-zone-active {
+            font-weight: bold;
+            color: #2ecc40;
+        }
         .day-btn {
             padding: 8px;
             margin: 2px;
@@ -78,11 +82,15 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         html += "<div class='program-header'>Program " + String(programNames[p]) + "</div>";
 
         // --- Copy From Buttons ---
-        html += "<div style='margin-bottom:10px;'>Copy From: ";
+        html += "<div style='margin-bottom:10px;display:flex;align-items:center;gap:10px;'>";
+        html += "<span>Copy From: ";
         for (int other = 0; other < 3; other++) {
             if (other == p) continue;
             html += "<button type='button' class='copy-btn' onclick='copyProgram(" + String(p) + "," + String(other) + ")'>Program " + String(programNames[other]) + "</button> ";
         }
+        html += "</span>";
+        // --- Clear All Times Button ---
+        html += "<button type='button' class='clear-btn' onclick='clearAllTimes(" + String(p) + ")' style='background:#f44336;color:white;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;'>Clear All Times</button>";
         html += "</div>";
         // -------------------------
         
@@ -108,26 +116,43 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         
         // Zone durations table
         html += "<table><tr><th>Zone</th><th style='text-align:center;'>Duration (minutes)</th><th>End Time</th></tr>";
+        // Determine if this program is currently running
+        bool isProgramRunning = false;
+        for (int z2 = 0; z2 < scheduleManager.count; z2++) {
+            if (scheduleManager.sprinklers[z2].state && scheduleManager.sprinklers[z2].calculatedSchedules[p].programIndex == p) {
+                isProgramRunning = true;
+                break;
+            }
+        }
+        // Track running end time for enabled zones only
+        int currentHour = prog.startTime.substring(0, 2).toInt();
+        int currentMin = prog.startTime.substring(3, 5).toInt();
         for (int z = 0; z < scheduleManager.count; z++) {
             bool isDisabled = scheduleManager.sprinklers[z].disabled;
             String rowClass = isDisabled ? " style='background-color:#e0e0e0;opacity:0.6;'" : "";
-            html += "<tr data-zone='" + String(z) + "'" + rowClass + "><td>Zone " + String(z + 1) + "</td>";
+            // Highlight only if this zone is enabled and ON for the running program
+            bool zoneActive = isProgramRunning && !isDisabled && scheduleManager.sprinklers[z].state && scheduleManager.sprinklers[z].calculatedSchedules[p].programIndex == p;
+            String zoneClass = zoneActive ? " class='prog-edit-zone-active'" : "";
+            html += "<tr data-zone='" + String(z) + "'" + rowClass + "><td" + zoneClass + ">Zone " + String(z + 1) + "</td>";
             html += "<td style='text-align:center;'><input type='number' class='duration-input' name='prog_" + String(p) + "_dur_" + String(z) + "' " +
                     "value='" + String(prog.durations[z]) + "' min='0' max='240'" + (isDisabled ? " disabled" : "") + "></td>";
             // Show calculated end time for this zone/program
-            String endTime = scheduleManager.sprinklers[z].calculatedSchedules[p].endTime;
-            // Display End Time in 12-hour format, left-justified
             String endTimeDisplay = "-";
-            if (endTime.length() == 5) {
-                int hour = endTime.substring(0, 2).toInt();
-                int min = endTime.substring(3, 5).toInt();
-                String ampm = "AM";
-                int displayHour = hour;
-                if (hour == 0) { displayHour = 12; ampm = "AM"; }
-                else if (hour == 12) { displayHour = 12; ampm = "PM"; }
-                else if (hour > 12) { displayHour = hour - 12; ampm = "PM"; }
-                else { displayHour = hour; ampm = "AM"; }
-                endTimeDisplay = String(displayHour) + ":" + (min < 10 ? "0" : "") + String(min) + " " + ampm;
+            if (!isDisabled && prog.durations[z] > 0) {
+                // Calculate end time for enabled zone
+                int zoneDuration = prog.durations[z];
+                int endHour = currentHour;
+                int endMin = currentMin + zoneDuration;
+                endHour += endMin / 60;
+                endMin = endMin % 60;
+                // Format as 12-hour time
+                int displayHour = endHour % 12;
+                if (displayHour == 0) displayHour = 12;
+                String ampm = (endHour >= 12 && endHour < 24) ? "PM" : "AM";
+                endTimeDisplay = String(displayHour) + ":" + (endMin < 10 ? "0" : "") + String(endMin) + " " + ampm;
+                // Advance current time for next zone
+                currentHour = endHour;
+                currentMin = endMin;
             }
             html += "<td style='text-align:left; padding-left:0;'>" + endTimeDisplay + "</td></tr>";
         }
@@ -143,6 +168,13 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         <input type='submit' value='Save All Programs' class='save-btn'>
     </form>
     <script>
+        // Clear all times for a program
+        function clearAllTimes(progIdx) {
+            const inputs = document.querySelectorAll(`input[name^='prog_${progIdx}_dur_']`);
+            inputs.forEach(input => {
+                input.value = 0;
+            });
+        }
         function toggleDay(prog, day) {
             const btn = event.target;
             const input = document.querySelector(`input[name="prog_${prog}_day_${day}"]`);
@@ -229,17 +261,14 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
     function copyProgram(target, source) {
         if (target === source) return;
         if (!confirm('Are you sure you want to overwrite Program ' + ['A','B','C'][target] + ' with Program ' + ['A','B','C'][source] + '?')) return;
-        fetch('/copy_program', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `target=${target}&source=${source}`
-        }).then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-                response.text().then(text => alert('Copy failed: ' + text));
-            }
-        });
+        // Copy durations from source to target in the UI
+        for (let z = 0; ; z++) {
+            let sourceInput = document.querySelector(`input[name='prog_${source}_dur_${z}']`);
+            let targetInput = document.querySelector(`input[name='prog_${target}_dur_${z}']`);
+            if (!sourceInput || !targetInput) break;
+            targetInput.value = sourceInput.value;
+        }
+        // Optionally, trigger recalculation of end times here if you have dynamic JS end time updates
     }
 </script>
 </body>
@@ -250,15 +279,7 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
 }
 
 void handleSavePrograms(WebServer& server, ScheduleManager& scheduleManager) {
-    // Update sprinkler disabled/enabled state
-    for (int s = 0; s < scheduleManager.count; s++) {
-        String key = "sprinkler_disabled_" + String(s);
-        if (server.hasArg(key)) {
-            scheduleManager.sprinklers[s].disabled = (server.arg(key) == "1");
-        } else {
-            scheduleManager.sprinklers[s].disabled = false;
-        }
-    }
+
     // Process each program
     for (int p = 0; p < 3; p++) {
         Program& prog = scheduleManager.programs[p];

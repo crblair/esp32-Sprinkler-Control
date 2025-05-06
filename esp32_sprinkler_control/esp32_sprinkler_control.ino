@@ -399,7 +399,7 @@ void loop() {
       for (int p = 0; p < 3; p++) {
         
         bool hasSchedules = false;
-        Serial.printf("\nSprinkler %d:\n", i + 1);
+        // Serial.printf("\nSprinkler %d:\n", i + 1);
         
         for (int p = 0; p < 3; p++) {
           CalculatedSchedule &schedule = scheduleManager->sprinklers[i].calculatedSchedules[p];
@@ -412,12 +412,12 @@ void loop() {
         }
         
         if (!hasSchedules) {
-          Serial.println("  No active schedules");
+          // Serial.println("  No active schedules");
         }
       }
       
       if (!anyPeriodsFound) {
-        Serial.println("No active schedules found for any sprinkler.");
+        // Serial.println("No active schedules found for any sprinkler.");
       }
     }
   }
