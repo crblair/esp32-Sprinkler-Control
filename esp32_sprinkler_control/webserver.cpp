@@ -124,6 +124,22 @@ void setupWebServerRoutes(
     ScheduleManager& scheduleManager, 
     SprinklerSystemState& manualState
 ) {
+    // Handler for program copy (POST)
+    server.on("/copy_program", HTTP_POST, [&]() {
+        if (!server.hasArg("target") || !server.hasArg("source")) {
+            server.send(400, "text/plain", "Missing parameters");
+            return;
+        }
+        int target = server.arg("target").toInt();
+        int source = server.arg("source").toInt();
+        if (target < 0 || target > 2 || source < 0 || source > 2 || target == source) {
+            server.send(400, "text/plain", "Invalid indices");
+            return;
+        }
+        scheduleManager.copyProgram(target, source);
+        server.send(200, "text/plain", "Program copied");
+    });
+
     // Handler for instant disable relay from UI
     // Handler for WiFi Setup (GET shows form, POST saves settings)
     server.on("/wifi_setup", HTTP_GET, [&]() {
