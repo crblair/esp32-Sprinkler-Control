@@ -91,6 +91,8 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         html += "</span>";
         // --- Clear All Times Button ---
         html += "<button type='button' class='clear-btn' onclick='clearAllTimes(" + String(p) + ")' style='background:#f44336;color:white;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;'>Clear All Times</button>";
+        // --- Run Now Button ---
+        html += "<button type='button' class='run-now-btn' onclick='runNow(" + String(p) + ")' style='background:#4CAF50;color:white;padding:6px 12px;border:none;border-radius:4px;cursor:pointer;'>Run Now</button>";
         html += "</div>";
         // -------------------------
         
@@ -168,6 +170,18 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         <input type='submit' value='Save All Programs' class='save-btn'>
     </form>
     <script>
+        // Run Now for a program: set start time to now, enable, and submit
+        function runNow(progIdx) {
+            // Set start time to current time (HH:MM, 24hr)
+            const now = new Date();
+            const hh = now.getHours().toString().padStart(2, '0');
+            const mm = now.getMinutes().toString().padStart(2, '0');
+            document.querySelector(`input[name='prog_${progIdx}_start']`).value = `${hh}:${mm}`;
+            // Enable program
+            document.querySelector(`input[name='prog_${progIdx}_enabled']`).checked = true;
+            // Submit the form
+            document.getElementById('programForm').submit();
+        }
         // Clear all times for a program
         function clearAllTimes(progIdx) {
             const inputs = document.querySelectorAll(`input[name^='prog_${progIdx}_dur_']`);
