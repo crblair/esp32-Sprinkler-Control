@@ -44,6 +44,13 @@ public:
     bool checkSprinklerSchedule(int sprinklerIndex, int today, int currentHour, int currentMinute);
     bool verifyPrograms();
     bool verifySchedules();  // Verify program configurations
+
+    /**
+     * @brief Copy the configuration from one program to another.
+     * @param targetIndex Index of the program to overwrite
+     * @param sourceIndex Index of the program to copy from
+     */
+    void copyProgram(int targetIndex, int sourceIndex);
     void clearAllPreferences();  // Clear all program data from Preferences
     
     Program programs[3];        // 3 available programs (A, B, C)

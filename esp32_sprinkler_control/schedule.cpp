@@ -11,6 +11,13 @@
 #include "config.h"
 #include "sprinkler_controller.h"
 
+// Copy configuration from one program to another and persist
+void ScheduleManager::copyProgram(int targetIndex, int sourceIndex) {
+    if (targetIndex == sourceIndex) return;
+    programs[targetIndex] = programs[sourceIndex];
+    savePrograms(); // Persist the change
+}
+
 // Utility: Clear all schedule data from Preferences
 void ScheduleManager::clearAllPreferences() {
     Preferences prefs;
