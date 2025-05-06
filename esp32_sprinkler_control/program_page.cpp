@@ -76,6 +76,15 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
         
         html += "<div class='program-container " + String(prog.enabled ? "program-enabled" : "program-disabled") + "'>";
         html += "<div class='program-header'>Program " + String(programNames[p]) + "</div>";
+
+        // --- Copy From Buttons ---
+        html += "<div style='margin-bottom:10px;'>Copy From: ";
+        for (int other = 0; other < 3; other++) {
+            if (other == p) continue;
+            html += "<button type='button' class='copy-btn' onclick='copyProgram(" + String(p) + "," + String(other) + ")'>Program " + String(programNames[other]) + "</button> ";
+        }
+        html += "</div>";
+        // -------------------------
         
         // Enable/disable toggle
         html += "<label><input type='checkbox' name='prog_" + String(p) + "_enabled' " +
@@ -215,6 +224,23 @@ void handleProgramPage(WebServer& server, ScheduleManager& scheduleManager) {
     }
     setInterval(updateTime, 1000);
     updateTime();
+</script>
+<script>
+    function copyProgram(target, source) {
+        if (target === source) return;
+        if (!confirm('Are you sure you want to overwrite Program ' + ['A','B','C'][target] + ' with Program ' + ['A','B','C'][source] + '?')) return;
+        fetch('/copy_program', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `target=${target}&source=${source}`
+        }).then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                response.text().then(text => alert('Copy failed: ' + text));
+            }
+        });
+    }
 </script>
 </body>
 </html>
