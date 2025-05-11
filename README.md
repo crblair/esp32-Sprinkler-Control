@@ -7,6 +7,9 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 - **Web-based interface** (works on desktop and mobile)
 - **Live status updates** and visual highlights for active Quick Run
 - **Easy configuration and scheduling**
+- **Multiple program schedules**
+- **Persistent configuration storage**
+- **Support for custom watering schedules by weekday and time**
 
 ---
 
@@ -30,6 +33,22 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 
 ---
 
+## File Overview
+- `esp32_sprinkler_control.ino`: Main Arduino sketch, entry point for the application
+- `config.*`: Configuration management (load/save settings)
+- `network.*`: WiFi and network setup
+- `network_state.*`: Tracks network connection state
+- `program_page.*`: Handles program scheduling logic
+- `quick_run.cpp`: Quick/manual run mode implementation
+- `schedule.*`: Scheduling logic for watering times
+- `sprinkler_controller.*`: Interface to the physical sprinkler hardware
+- `sprinkler_system_state.h`: State tracking for the sprinkler system
+- `timeprefs.*`: Time preferences and related settings
+- `webserver.*`: Embedded web server for UI and configuration
+- `weekday.*`: Helper for weekday calculations
+
+---
+
 ## Getting Started
 
 ### Hardware
@@ -38,8 +57,9 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 - Power supply for relays/valves
 
 ### Software
-- Arduino IDE 2.3.4 or PlatformIO
+- Arduino IDE (2.3.4 or later) or PlatformIO
 - ESP32 board support package
+- Required libraries: WiFi, WebServer, EEPROM, and other standard Arduino libraries
 
 ### Setup
 1. Clone this repository:
@@ -103,16 +123,27 @@ Below are the wiring diagrams for the ESP32 Sprinkler Controller hardware setup:
 
 ---
 
+## Usage
+
+- Connect to the ESP32 via its web interface (find the IP address via serial monitor or your router)
+- Configure watering schedules, zones, and preferences via the web UI
+- Manual quick run is available for immediate watering
+
+---
+
 ## Contributing
-Pull requests and suggestions are welcome! Please open an issue to discuss major changes first.
+
+Pull requests and suggestions are welcome! Please open an issue to discuss major changes first and ensure code is well-documented and tested.
 
 ---
 
 ## License
-This project is licensed under the MIT License.
+
+This project is open source under the MIT License. See LICENSE file for details (add a LICENSE file if needed).
 
 ---
 
 ## Credits
+
 - Developed by crblair with AI pair-programming assistance.
 - Based on ESP32 Arduino libraries and open-source web technologies.
