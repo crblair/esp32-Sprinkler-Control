@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ESP32 Sprinkler Control
 
 A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuring:
@@ -147,3 +148,7 @@ This project is open source under the MIT License. See LICENSE file for details 
 
 - Developed by crblair with AI pair-programming assistance.
 - Based on ESP32 Arduino libraries and open-source web technologies.
+=======
+# esp32-Sprinkler-Control
+Full featured esp32 Relay 8x Sprinkler Control with manual, 3 programs, quick run features.  WiFi credential entry, OTA firmware upgrade
+>>>>>>> bdea8958988b94b839f5292951406914c942b897
