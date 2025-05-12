@@ -12,18 +12,60 @@ body {
 header {
     background: #fff;
     color: #23272f;
-    padding: 2rem 2rem 1rem 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
     box-shadow: 0 4px 16px rgba(30,58,92,0.06);
     border-bottom: 1px solid #e6eaf1;
 }
-header h1 {
-    margin: 0 0 0.5rem 0;
-    font-size: 2.2rem;
+.nav-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
+}
+.logo {
+    font-size: 1.4rem;
     font-weight: 700;
+    color: #1e3a5c;
     letter-spacing: 1px;
+}
+nav {
+    display: flex;
+    gap: 2rem;
+    margin-top: 0;
+}
+nav a {
+    color: #1e3a5c;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+    font-size: 1rem;
+}
+nav a:hover, nav a:focus {
+    background: #e6eaf1;
+    color: #0a1931;
+    outline: none;
+}
+@media (max-width: 700px) {
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 0.5rem;
+    }
+    nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+    }
+    .logo {
+        margin-bottom: 0.5rem;
+    }
 }
 header h1 {
     margin: 0 0 0.5rem 0;
@@ -59,22 +101,55 @@ nav a:hover {
 .hero {
     background: linear-gradient(120deg, #e3f0ff 0%, #f4f7fb 100%);
     text-align: center;
-    padding: 3rem 1rem 2.5rem 1rem;
+    padding: 4rem 1rem 3rem 1rem;
     margin-bottom: 2.5rem;
-    border-radius: 16px;
+    border-radius: 18px;
     box-shadow: 0 2px 16px rgba(30,58,92,0.08);
 }
-.hero h2 {
-    font-size: 2.4rem;
-    margin-bottom: 0.6rem;
+.hero h1 {
+    font-size: 2.8rem;
+    margin-bottom: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 .hero .tagline {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: #46618a;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 }
+.hero .features-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.features-list li {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(30,58,92,0.05);
+    padding: 1.3rem 1.5rem;
+    font-size: 1.1rem;
+    color: #23272f;
+    border-left: 5px solid #3b82f6;
+    transition: box-shadow 0.2s;
+}
+.features-list li strong {
+    color: #1e3a5c;
+}
+.features-list li:hover {
+    box-shadow: 0 6px 24px rgba(30,58,92,0.13);
+}
+@media (max-width: 700px) {
+    .hero {
+        padding: 2rem 0.5rem 2rem 0.5rem;
+    }
+    .hero h1 {
+        font-size: 1.4rem;
+    }
+}
+
 
 .card-section {
     background: #f8fafc;
@@ -109,13 +184,16 @@ nav a:hover {
     display: inline-block;
     background: linear-gradient(90deg, #1e3a5c 60%, #3b82f6 100%);
     color: #fff;
-    padding: 0.8rem 2.2rem;
-    border-radius: 6px;
+    padding: 1rem 2.5rem;
+    border-radius: 7px;
     text-decoration: none;
-    font-weight: 600;
-    margin-top: 1.2rem;
+    font-weight: 700;
+    margin-top: 1.5rem;
+    font-size: 1.1rem;
     box-shadow: 0 2px 8px rgba(30,58,92,0.08);
     transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    border: none;
+    cursor: pointer;
 }
 .cta:hover, .cta:focus {
     background: #ffd700;

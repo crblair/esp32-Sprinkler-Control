@@ -3,23 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Larosa Technologies LLC - ESP32 Sprinkler Controller Kit</title>
-    <!-- Google Fonts: Inter -->
+    <title>ESP32 Sprinkler Control | Larosa Technologies</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>Larosa Technologies LLC</h1>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#product">Product</a>
-            <a href="#kit">Kit Contents</a>
-            <a href="#software">Software</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </nav>
+        <div class="nav-container">
+            <div class="logo">ESP32 Sprinkler Control</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
     </header>
+    <main>
+        <section id="home" class="hero">
+            <h1>ESP32 Sprinkler Control</h1>
+            <p class="tagline">A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller</p>
+            <a class="cta" href="#contact">Get in Touch</a>
+        </section>
+        <section id="features" class="card-section">
+            <h2>Features</h2>
+            <ul class="features-list">
+                <li><strong>Manual zone control:</strong> Turn individual zones ON/OFF from the web UI</li>
+                <li><strong>Quick Run Mode:</strong> Start all enabled zones for a set time, with live countdown and visual highlights</li>
+                <li><strong>Web-based interface:</strong> Works on desktop and mobile</li>
+                <li><strong>Live status updates:</strong> Visual highlights for active Quick Run</li>
+                <li><strong>Easy configuration and scheduling:</strong> (Optional) Set up automatic schedules for watering</li>
+            </ul>
+        </section>
+        <section id="about" class="about-section">
+            <h2>About Larosa Technologies</h2>
+            <p><strong>Larosa Technologies LLC</strong> is dedicated to empowering makers and homeowners with innovative, open hardware solutions. Based in the USA, we focus on quality, transparency, and enabling creativity through technology. Our ESP32 Sprinkler Controller Kit is just one example of our commitment to practical, user-friendly products for the modern home.</p>
+            <p><strong>Our Mission:</strong> To provide affordable, reliable, and open solutions that inspire DIYers and professionals alike. We believe in open-source principles, customer support, and continuous improvement.</p>
+        </section>
+        <section id="contact" class="card-section">
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+            <div id="form-response"></div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 Larosa Technologies LLC. All rights reserved.</p>
+    </footer>
+    <script src="main.js"></script>
+</body>
+</html>
     <main>
         <section id="home" class="hero">
             <h2>DIY ESP32 Sprinkler Controller Kit</h2>
