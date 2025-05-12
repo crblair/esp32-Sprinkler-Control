@@ -10,7 +10,7 @@ body {
 /* Google Fonts - Inter */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 header {
-    background: #fff;
+    background: #e3f0ff; /* fallback for nav bar in all browsers */
     color: #23272f;
     padding: 0;
     position: sticky;
@@ -26,8 +26,11 @@ header {
     align-items: center;
     justify-content: space-between;
     padding: 1.2rem 2rem;
-    background-color: #e3f0ff; /* fallback for all browsers */
-    background-image: linear-gradient(90deg, #e3f0ff 0%, #b6d0f7 100%);
+    min-height: 64px;
+    width: 100%;
+    background-color: #e3f0ff !important; /* fallback */
+    background-image: linear-gradient(90deg, #e3f0ff 0%, #b6d0f7 100%) !important;
+    background: #e3f0ff linear-gradient(90deg, #e3f0ff 0%, #b6d0f7 100%) !important;
     box-shadow: 0 2px 8px rgba(30,58,92,0.07);
     border-radius: 0 0 12px 12px;
 }
