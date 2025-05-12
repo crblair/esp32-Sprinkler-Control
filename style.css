@@ -40,10 +40,12 @@ header {
 }
 
 .logo {
-    font-size: 1.4rem;
-    font-weight: 700;
+    font-size: 3.5rem;
+    font-weight: 900;
     color: #1e3a5c;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1.05;
 }
 nav {
     display: flex;
