@@ -57,7 +57,7 @@ nav a:hover {
     color: #ffd700;
 }
 .hero {
-    background: linear-gradient(90deg, #e3f0ff 0%, #f4f7fb 100%);
+    background: linear-gradient(120deg, #e3f0ff 0%, #f4f7fb 100%);
     text-align: center;
     padding: 3rem 1rem 2.5rem 1rem;
     margin-bottom: 2.5rem;
@@ -69,6 +69,37 @@ nav a:hover {
     margin-bottom: 0.6rem;
     font-weight: 700;
     letter-spacing: 0.5px;
+}
+.hero .tagline {
+    font-size: 1.2rem;
+    color: #46618a;
+    margin-bottom: 1rem;
+}
+
+.card-section {
+    background: #f8fafc;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(30,58,92,0.04);
+    margin-bottom: 2rem;
+    border: 1px solid #e6eaf1;
+}
+
+.card-section:nth-of-type(even) {
+    background: #f4f7fb;
+}
+
+.about-section {
+    background: linear-gradient(120deg, #f6eaff 0%, #e3f0ff 100%);
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(30,58,92,0.10);
+    padding: 2.5rem 2rem;
+    margin-bottom: 2.5rem;
+    border: 1.5px solid #e6eaf1;
+}
+.about-section h3 {
+    font-size: 1.7rem;
+    color: #7b2ff2;
+    margin-bottom: 0.7rem;
 }
 .hero h2 {
     font-size: 2.2rem;
