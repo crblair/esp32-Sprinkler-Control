@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# ESP32 Sprinkler Control
+# ESP32 Sprinkler Control (v3.2.3)
 
 A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuring:
 
@@ -28,9 +28,18 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 ### Scheduling
 - (Optional) Set up automatic schedules for watering
 
+### Run Program Now
+- Instantly run any program once, without disrupting normal schedules
+- Does not interfere with manual or Quick Run modes
+
 ### Web Interface
 - Responsive, easy-to-use UI
 - Real-time status updates via AJAX polling
+
+---
+
+## Automatic Schedule Recalculation
+- Whenever you save a program in the web UI, the controller immediately recalculates today's schedule and updates all relays. No reboot or waiting for midnight required.
 
 ---
 
@@ -47,6 +56,16 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 - `timeprefs.*`: Time preferences and related settings
 - `webserver.*`: Embedded web server for UI and configuration
 - `weekday.*`: Helper for weekday calculations
+
+---
+
+## Changelog
+
+### v3.2.3
+- Added "Run Program Now" feature: Instantly run a selected program once, without affecting normal schedules.
+- Improved schedule reliability: Schedules are recalculated immediately after saving a program in the UI.
+- Main loop logic improved for seamless interaction between Run Program Now, Quick Run, and scheduled/manual modes.
+- Various reliability and usability improvements.
 
 ---
 
