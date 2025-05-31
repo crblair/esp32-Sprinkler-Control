@@ -1,4 +1,4 @@
-# ESP32 Sprinkler Control (v3.2.4)
+<<<<<<< HEAD
 # ESP32 Sprinkler Control
 
 A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuring:
@@ -28,18 +28,9 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 ### Scheduling
 - (Optional) Set up automatic schedules for watering
 
-### Run Program Now
-- Instantly run any program once, without disrupting normal schedules
-- Does not interfere with manual or Quick Run modes
-
 ### Web Interface
 - Responsive, easy-to-use UI
 - Real-time status updates via AJAX polling
-
----
-
-## Automatic Schedule Recalculation
-- Whenever you save a program in the web UI, the controller immediately recalculates today's schedule and updates all relays. No reboot or waiting for midnight required.
 
 ---
 
@@ -59,21 +50,6 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 
 ---
 
-## Changelog
-
-### v3.2.4
-- Quick Run now always steps through all enabled zones, ignoring program durations, and uses the user-set duration for each zone.
-- Fixes for edge cases: disabling any zone (e.g. 5 and 6) will skip only those, and the rest will run in sequence as expected.
-- Version and config updates.
-
-### v3.2.3
-- Added "Run Program Now" feature: Instantly run a selected program once, without affecting normal schedules.
-- Improved schedule reliability: Schedules are recalculated immediately after saving a program in the UI.
-- Main loop logic improved for seamless interaction between Run Program Now, Quick Run, and scheduled/manual modes.
-- Various reliability and usability improvements.
-
----
-
 ## Getting Started
 
 ### Hardware
@@ -85,8 +61,6 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 - Arduino IDE (2.3.4 or later) or PlatformIO
 - ESP32 board support package
 - Required libraries: WiFi, WebServer, EEPROM, and other standard Arduino libraries
-- Arduino IDE 2.3.4 or PlatformIO
-- ESP32 board support package
 
 ### Setup
 1. Clone this repository:
@@ -161,15 +135,12 @@ Below are the wiring diagrams for the ESP32 Sprinkler Controller hardware setup:
 ## Contributing
 
 Pull requests and suggestions are welcome! Please open an issue to discuss major changes first and ensure code is well-documented and tested.
-## Contributing
-Pull requests and suggestions are welcome! Please open an issue to discuss major changes first.
 
 ---
 
 ## License
 
 This project is open source under the MIT License. See LICENSE file for details (add a LICENSE file if needed).
-This project is licensed under the MIT License.
 
 ---
 
@@ -177,8 +148,7 @@ This project is licensed under the MIT License.
 
 - Developed by crblair with AI pair-programming assistance.
 - Based on ESP32 Arduino libraries and open-source web technologies.
+=======
 # esp32-Sprinkler-Control
 Full featured esp32 Relay 8x Sprinkler Control with manual, 3 programs, quick run features.  WiFi credential entry, OTA firmware upgrade
 >>>>>>> bdea8958988b94b839f5292951406914c942b897
-- Developed by crblair with AI pair-programming assistance.
-- Based on ESP32 Arduino libraries and open-source web technologies.

@@ -1,0 +1,25 @@
+Sprinkler Control Rev 3.2.1
+This version includes:
+*	Improved software w ChatGPT improvements
+*	Improved font color change handling
+*	Schedule persists through power outage and reconnect
+*	Added buttons to clear schedule for each schedule at bottom of the set schedules section for each sprinkler
+*	Simple firmware upgrade using ArduinoOTA library functions
+*	Ability of user to change time zones from the website
+*	Fix "Clear all Schedules" button at bottom of each sprinkler to refer to the sprinkler that is cleared
+*	Improved Firmware upgrade by avoiding the error message and rebooting the page after complete message is received
+***	New features or changes since last firmware Rev are now identified in this text with triple asterisks
+***	Improved modular structure for software
+***	New schedule features less clunky
+***	Schedule and time settings (including dst) persist a reboot
+***	Color added to Schedule Management page
+***	Copy and paste capability for each line of schedule and paste to all days button at top of each sprinkler page
+***	Redesign of input code that emulates commercially available controllers with 3 programs
+***	Added wifi setup via Captive AP
+***	Fixed all programs so they are all functional not just program A
+***	Changed pinout order so each zone corresponds to the correct relay
+***	Made cosmetic changes to main page to remove unnecessary spaces such that page prints completely with no scrolling needed
+***	Attempting to implement "quick run" capability
+
+
+
