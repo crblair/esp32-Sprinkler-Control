@@ -13,7 +13,7 @@ void ScheduleManager::startQuickRun(int durationSeconds, int programIndex) {
     quickRunCurrentZone = -1;
     // Build list of enabled zones with nonzero duration for the selected program
     for (int i = 0; i < count; ++i) {
-        if (!sprinklers[i].disabled && programs[programIndex].durations[i] > 0) {
+        if (!sprinklers[i].disabled) {
             quickRunPendingZones[quickRunNumZones++] = i;
         }
     }
@@ -51,10 +51,7 @@ void ScheduleManager::updateQuickRun() {
         if (quickRunZoneIndex < quickRunNumZones) {
             quickRunCurrentZone = quickRunPendingZones[quickRunZoneIndex];
             quickRunStartTime = millis(); // Use fresh millis for next zone
-            // Set correct duration for this zone from the active program
-            if (currentRunNowProgramIndex >= 0 && currentRunNowProgramIndex < 3) {
-                quickRunDurationPerZone = programs[currentRunNowProgramIndex].durations[quickRunCurrentZone] * 60 * 1000;
-            }
+            
         } else {
             stopQuickRun();
         }

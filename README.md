@@ -1,5 +1,5 @@
 <<<<<<< HEAD
-# ESP32 Sprinkler Control (v3.2.3)
+# ESP32 Sprinkler Control (v3.2.4)
 
 A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuring:
 
@@ -60,6 +60,11 @@ A WiFi-enabled smart sprinkler controller for the ESP32 microcontroller, featuri
 ---
 
 ## Changelog
+
+### v3.2.4
+- Quick Run now always steps through all enabled zones, ignoring program durations, and uses the user-set duration for each zone.
+- Fixes for edge cases: disabling any zone (e.g. 5 and 6) will skip only those, and the rest will run in sequence as expected.
+- Version and config updates.
 
 ### v3.2.3
 - Added "Run Program Now" feature: Instantly run a selected program once, without affecting normal schedules.

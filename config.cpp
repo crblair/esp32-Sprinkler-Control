@@ -7,7 +7,7 @@ const int EEPROM_SIZE = EEPROM_NET_CONFIG_SIZE + EEPROM_SCHEDULE_SIZE;
 // WiFi Credentials now stored in mutable Strings
 
 // Firmware Version
-const char* FIRMWARE_VERSION = "3.2.3";
+const char* FIRMWARE_VERSION = "3.2.4";
 
 // Status LED Pin
 const int statusLedPin = 23;
